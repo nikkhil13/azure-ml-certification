@@ -13,9 +13,13 @@ def init():
 # Called when a request is received
 def run(raw_data):
     # Get the input data as a numpy array
-    data = np.array(json.loads(raw_data)['data'])
+    data = json.loads(raw_data)['data']
+    np_data = np.array(data)
     # Get a prediction from the model
-    predictions = model.predict(data)
+    predictions = model.predict(np_data)
+    # print the data and predictions (so they'll be logged!)
+    log_text = 'Data:' + str(data) + ' - Predictions:' + str(predictions)
+    print(log_text)
     # Get the corresponding classname for each prediction (0 or 1)
     classnames = ['not-diabetic', 'diabetic']
     predicted_classes = []
